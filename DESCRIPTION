@@ -1,5 +1,5 @@
 Package: lpSolve
-Version: 5.6.13.3.9000
+Version: 5.6.15
 Title: Interface to 'Lp_solve' v. 5.5 to Solve Linear/Integer Programs
 Author: Michel Berkelaar and others
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
