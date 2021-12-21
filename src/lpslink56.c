@@ -54,6 +54,7 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
               double *dense_ctr,              /* Dense constraint info       */
               LONG_OR_INT *use_rw_file,       /* See notes below             */
               char **rw_file,                 /* See notes below             */
+              int *timeout,                   /* timeout in seconds */
               LONG_OR_INT *status);           /* Holds return value          */
 
 /*
@@ -107,7 +108,7 @@ vb_objective[0] = 0.0;
 ** fails, exit gracefully.
 */
 
-vb_constraints = (double *) malloc (sizeof (double) * 
+vb_constraints = (double *) malloc (sizeof (double) *
                      (1 + vb_const_count * (vb_x_count + 2)));
 
 if (vb_constraints == (double *) NULL)
@@ -153,7 +154,7 @@ if (vb_solution == (double *) NULL)
 }
 /*
 ** Our work here is done.
-*/ 
+*/
 return (0);
 } /* end lps_vb_setup */
 
@@ -176,7 +177,7 @@ long lps_vb_set_element (long type,     /* Place to do the setting */
     if (type == 2) {
         vb_constraints[(row - 1) * (vb_x_count + 2) + column] = value;
     }
-    if (type == 3 && vb_int_count > 0) 
+    if (type == 3 && vb_int_count > 0)
         vb_int_vec[row] = floor (value + 0.5);
     return (1);
 }
@@ -240,6 +241,7 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
               double *dense_ctr,              /* Dense constraint info       */
               LONG_OR_INT *use_rw_file,       /* See notes below             */
               char **rw_file,                 /* See notes below             */
+              int *timeout,                   /* timeout in seconds */
               LONG_OR_INT *status)            /* Holds return value          */
 {
 /*
@@ -249,7 +251,7 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
 ** "rw file" notes: to get around some sort of a bug in lpSolve, we allow
 ** callers to set "use_rw_file" to TRUE and pass a file name in rw_file.
 ** This only makes sense in the case where all the decision variables are
-** binary and num_bin_solns > 1. Then instead of just adding constraints to 
+** binary and num_bin_solns > 1. Then instead of just adding constraints to
 ** lp and re-solving, we write the lp out to the rw_file, delete the lp, and
 ** read the file back in every time. It's costly, but what can you do?
 */
@@ -268,7 +270,7 @@ double *new_ptr;     /* Point to a bit of "solution" 4 building constraint  */
 int soln_ctr;        /* Which solution are we on?                           */
 
 double new_rhs;      /* RHS value for new constraint.                       */
-LONG_OR_INT 
+LONG_OR_INT
     new_status;      /* Status for calls to "solve" after the first.        */
 
 lprec *lp;           /* Structure to hold the lp */
@@ -320,12 +322,12 @@ if ((int) *const_count > 0) {
 ** a pointer to the values, an int pointer to the column numbers associated with
 ** the values, the constraint type (<, = >) and the constraint's right side.
 */
-            add_constraintex (lp, d_num, 
+            add_constraintex (lp, d_num,
                 (double *) &(dense_val[dmat_ctr]),
-                (int *) &(dense_col[dmat_ctr]), 
+                (int *) &(dense_col[dmat_ctr]),
                 (int) dense_ctr[dctr_ctr + 1], dense_ctr[dctr_ctr + 2]);
             dctr_ctr += 3;
-            dmat_ctr += d_num;    
+            dmat_ctr += d_num;
         }
 /* Maybe replace this with set_row, set_rh_vec, set_constr_type? */
     }
@@ -341,7 +343,7 @@ if ((int) *const_count > 0) {
         for (i = 0; i < (int) *const_count; i++)
         {
             add_constraint (lp, const_ptr,
-                (short) const_ptr[(int) (*x_count) + 1], 
+                (short) const_ptr[(int) (*x_count) + 1],
                         const_ptr[(int) (*x_count) + 2]);
             const_ptr += (int) *x_count + 2;
         }
@@ -373,6 +375,8 @@ if (*compute_sens > 0) {
     }
 
 
+if (timeout[0] > 0) set_timeout(lp, 60);
+
 set_scaling (lp, *scale);
 *status = (LONG_OR_INT) solve (lp);
 
@@ -398,14 +402,14 @@ get_variables (lp, solution);
 
 /*
 ** If this is an all-binary problem, and more than one solution has
-** been asked for, let's get those other solutions. We do that in 
+** been asked for, let's get those other solutions. We do that in
 ** this way. First, add a constraint requiring that the objective function
 ** not move below *obj_val, if this is a maximization problem, or above
 ** it, if this is minimization. We need only do this once.
 */
 soln_ctr = 1;
 if (*num_bin_solns > 1) {
-    add_constraint (lp, objective, 
+    add_constraint (lp, objective,
                     (*direction == 1) ? ROWTYPE_GE : ROWTYPE_LE, *obj_val);
 
 
@@ -423,11 +427,11 @@ if (*num_bin_solns > 1) {
         last_soln = &(solution[(soln_ctr - 1) * *x_count]);
         new_ptr = last_soln + *x_count; /* Move up *x_count elements */
 /*
-** Now we need to add one new constraint. We go through every element of 
+** Now we need to add one new constraint. We go through every element of
 ** the most recent solution. For every element that's a 1 in the solution,
 ** put in a 1 in the constraint. For every 0, put a -1 in the constraint.
-** The rhs is the # of 1's minus 1, and the sign is <. So if there were 
-** five variables and the last solution was (1, 1, 1, 0, 0), the new 
+** The rhs is the # of 1's minus 1, and the sign is <. So if there were
+** five variables and the last solution was (1, 1, 1, 0, 0), the new
 ** constraint would say x1 + x2 + x3 -x4 -x5 < 2.
 */
         new_rhs = 0;
@@ -446,7 +450,7 @@ if (*num_bin_solns > 1) {
             lp = read_lp (filex_file, CRITICAL, (char *) NULL);
             fclose (filex_file);
 	}
-        
+
         result = add_constraint (lp, new_ptr, ROWTYPE_LE, new_rhs - 1);
 
         set_scaling (lp, *scale);
@@ -470,7 +474,7 @@ if (*num_bin_solns > 1) {
 
 
 /*
-** 
+**
 */
 
 /*
@@ -618,7 +622,7 @@ if (*compute_sens > 0) {
 get_variables (lp, solution);
 
 /*
-** 
+**
 */
 
 /*
