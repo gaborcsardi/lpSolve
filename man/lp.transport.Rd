@@ -1,7 +1,7 @@
 \name{lp.transport}
 \alias{lp.transport}
 \title{Integer Programming for the Transportation Problem}
-\description{Interface to lp\_solve linear/integer programming
+\description{Interface to \code{lp_solve} linear/integer programming
 system specifically for solving transportation problems}
 \usage{
 lp.transport (cost.mat, direction="min", row.signs, row.rhs, col.signs,

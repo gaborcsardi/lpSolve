@@ -1,7 +1,7 @@
 \name{lp}
 \alias{lp}
 \title{Linear and Integer Programming}
-\description{Interface to lp\_solve linear/integer programming system}
+\description{Interface to \code{lp_solve} linear/integer programming system}
 \usage{
 lp (direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	transpose.constraints = TRUE, int.vec, presolve=0, compute.sens=0,
@@ -50,7 +50,7 @@ defeat a bug somewhere. Although the default is FALSE, we recommend you set
 this to TRUE if you need num.bin.solns > 1, until the bug is found.}
 }
 \details{
-This function calls the lp\_solve 5.5 solver. That system has many options not
+This function calls the \code{lp_solve} 5.5 solver. That system has many options not
 supported here. The current version is maintained at
 \url{http://lpsolve.sourceforge.net/5.5}
 
