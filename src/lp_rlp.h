@@ -1158,7 +1158,7 @@ YY_RULE_SETUP
  *	EOB_ACT_END_OF_FILE - end of file
  */
 
-static int lp_yy_get_next_buffer()
+static int lp_yy_get_next_buffer(void)
 	{
 	register char *dest = lp_yy_current_buffer->lp_yy_ch_buf;
 	register char *source = lp_yytext_ptr;
@@ -1290,7 +1290,7 @@ static int lp_yy_get_next_buffer()
 
 /* lp_yy_get_previous_state - get the state just before the EOB char was reached */
 
-static lp_yy_state_type lp_yy_get_previous_state()
+static lp_yy_state_type lp_yy_get_previous_state(void)
 	{
 	register lp_yy_state_type lp_yy_current_state;
 	register char *lp_yy_cp;
@@ -1398,7 +1398,7 @@ register char *lp_yy_bp;
 #ifdef __cplusplus
 static int lp_yyinput()
 #else
-static int input()
+static inline int input(void)
 #endif
 	{
 	int c;

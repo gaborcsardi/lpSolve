@@ -136,7 +136,7 @@ void lex_fatal_error(char *msg)
   longjmp(jump_buf, 1);
 }
 
-void add_row()
+void add_row(void)
 {
   Rows++;
   rs = NULL;
@@ -544,7 +544,7 @@ int store_re_op(char *yytext, int HadConstraint, int HadVar, int Had_lineair_sum
   return(TRUE);
 } /* store_re_op */
 
-int negate_constraint()
+int negate_constraint(void)
 {
     if(rs != NULL)
       rs->negate = TRUE;

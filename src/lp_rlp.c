@@ -552,7 +552,7 @@ __lp_yy_memcpy (char *to, char *from, unsigned int count)
 #define YYPARSE_PARAM_DECL void *YYPARSE_PARAM;
 #endif /* not __cplusplus */
 #else /* not YYPARSE_PARAM */
-#define YYPARSE_PARAM_ARG
+#define YYPARSE_PARAM_ARG void
 #define YYPARSE_PARAM_DECL
 #endif /* not YYPARSE_PARAM */
 
