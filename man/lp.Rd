@@ -52,7 +52,7 @@ this to TRUE if you need num.bin.solns > 1, until the bug is found.}
 \details{
 This function calls the \code{lp_solve} 5.5 solver. That system has many options not
 supported here. The current version is maintained at
-\url{http://lpsolve.sourceforge.net/5.5/}
+\url{https://lpsolve.sourceforge.net/5.5/}
 
 Note that every variable is assumed to be >= 0!
 }
