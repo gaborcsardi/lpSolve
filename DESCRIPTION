@@ -1,5 +1,5 @@
 Package: lpSolve
-Version: 5.6.13.4.9000
+Version: 5.6.17
 Title: Interface to 'Lp_solve' v. 5.5 to Solve Linear/Integer Programs
 Author: Michel Berkelaar and others
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
@@ -10,4 +10,5 @@ Description: Lp_solve is freely available (under LGPL 2) software for
         assignment problems, and transportation problems. This version
         calls lp_solve version 5.5.
 License: LGPL-2
+URL: https://github.com/gaborcsardi/lpSolve
 Encoding: UTF-8

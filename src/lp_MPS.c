@@ -983,7 +983,7 @@ MYBOOL __WINAPI MPS_readex(lprec **newlp, void *userhandle, read_modeldata_func 
             /* lp_solve needs a name for the SOS */
             if(variant == 0) {
               if(strlen(field3) == 0)  /* CPLEX format does not provide a SOS name; create one */
-                sprintf(field3, "SOS_%d", SOS_count(lp) + 1);
+                snprintf(field3, sizeof(field3), "SOS_%d", SOS_count(lp) + 1);
             }
             else {                     /* Remap XPRESS format name */
               strcpy(field3, field1);
@@ -1048,7 +1048,7 @@ static void number(char *str,REAL value)
   char __str[80], *_str;
   int  i;
 
-  /* sprintf(_str,"%12.6G",value); */
+  /* snprintf(_str,sizeof(__str),"%12.6G",value); */
   _str=__str+2;
   if (value>=0.0)
    if ((value!=0.0) && ((value>0.99999999e12) || (value<0.0001))) {
@@ -1056,7 +1056,7 @@ static void number(char *str,REAL value)
 
     do {
      n--;
-     i=sprintf(_str,"%*.*E",n,n-6,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.*E",n,n-6,(double) value);
      if (i>12) {
       char *ptr=strchr(_str,'E');
 
@@ -1074,11 +1074,11 @@ static void number(char *str,REAL value)
     int n=13;
 
     do {
-     i=sprintf(_str,"%*.0f",--n,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.0f",--n,(double) value);
     } while (i>12);
    }
    else {
-    if (((i=sprintf(_str,"%12.10f",(double) value))>12) && (_str[12]>='5')) {
+    if (((i=snprintf(_str,sizeof(__str)-2,"%12.10f",(double) value))>12) && (_str[12]>='5')) {
      for (i=11;i>=0;i--)
       if (_str[i]!='.') {
        if (++_str[i]>'9') _str[i]='0';
@@ -1096,7 +1096,7 @@ static void number(char *str,REAL value)
 
     do {
      n--;
-     i=sprintf(_str,"%*.*E",n,n-7,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.*E",n,n-7,(double) value);
      if (i>12) {
       char *ptr=strchr(_str,'E');
 
@@ -1114,11 +1114,11 @@ static void number(char *str,REAL value)
     int n=13;
 
     do {
-     i=sprintf(_str,"%*.0f",--n,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.0f",--n,(double) value);
     } while (i>12);
    }
    else
-    if (((i=sprintf(_str,"%12.9f",(double) value))>12) && (_str[12]>='5')) {
+    if (((i=snprintf(_str,sizeof(__str)-2,"%12.9f",(double) value))>12) && (_str[12]>='5')) {
      for (i=11;i>=1;i--)
       if (_str[i]!='.') {
        if (++_str[i]>'9') _str[i]='0';
@@ -1139,7 +1139,7 @@ static char numberbuffer[15];
 static char *formatnumber12(double a)
 {
 #if 0
-  return(sprintf(numberbuffer, "%12g", a));
+  return(snprintf(numberbuffer, sizeof(numberbuffer), "%12g", a));
 #else
   number(numberbuffer, a);
   return(numberbuffer);
@@ -1150,7 +1150,7 @@ STATIC char *MPSnameFIXED(char *name)
 {
   static char name0[9];
 
-  sprintf(name0, "%-8.8s", name);
+  snprintf(name0, sizeof(name0), "%-8.8s", name);
   return(name0);
 }
 

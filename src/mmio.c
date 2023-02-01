@@ -77,6 +77,7 @@ int mm_read_unsymmetric_sparse(const char *fname, int *M_, int *N_, int *nz_,
     for (i=0; i<nz; i++)
     {
         int nr = fscanf(f, "%d %d %lg\n", &I[i], &J[i], &val[i]);
+	if (!nr) REprintf("fscanf failed at index %d", i);
         I[i]--;  /* adjust from 1-based to 0-based */
         J[i]--;
     }
@@ -492,7 +493,7 @@ char  *mm_typecode_to_str(MM_typecode matcode)
     else
         return NULL;
 
-    sprintf(buffer,"%s %s %s %s", types[0], types[1], types[2], types[3]);
+    snprintf(buffer, sizeof(buffer), "%s %s %s %s", types[0], types[1], types[2], types[3]);
     return & buffer[0];
 
 }

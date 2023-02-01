@@ -2,3 +2,4 @@
 /src/lpSolve.so
 .Rproj.user
 *.Rproj
+/revdep

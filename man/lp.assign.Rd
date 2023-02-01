@@ -1,7 +1,7 @@
 \name{lp.assign}
 \alias{lp.assign}
 \title{Integer Programming for the Assignment Problem}
-\description{Interface to lp\_solve linear/integer programming
+\description{Interface to \code{lp_solve} linear/integer programming
 system specifically for solving assignment problems}
 \usage{
 lp.assign (cost.mat, direction = "min", presolve = 0, compute.sens = 0)
