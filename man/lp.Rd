@@ -6,7 +6,7 @@
 lp (direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	transpose.constraints = TRUE, int.vec, presolve=0, compute.sens=0,
         binary.vec, all.int=FALSE, all.bin=FALSE, scale = 196, dense.const, 
-        num.bin.solns=1, use.rw=FALSE)
+        num.bin.solns=1, use.rw=FALSE, timeout = 0L)
 }
 \arguments{
 \item{direction}{Character string giving direction of optimization:
@@ -48,6 +48,8 @@ num.bin.solns optimal solutions to be returned.}
 file and read it back in for each solution after the first. This is just to
 defeat a bug somewhere. Although the default is FALSE, we recommend you set
 this to TRUE if you need num.bin.solns > 1, until the bug is found.}
+\item{timeout}{Integer: timeout variable in seconds, defaults to 0L which means
+no limit is set.}
 }
 \details{
 This function calls the \code{lp_solve} 5.5 solver. That system has many options not

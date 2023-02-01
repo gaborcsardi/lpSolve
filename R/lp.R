@@ -1,7 +1,7 @@
 lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	transpose.constraints = TRUE, int.vec, presolve = 0, compute.sens = 0,
 	binary.vec, all.int=FALSE, all.bin=FALSE, scale=196, dense.const, 
-        num.bin.solns=1, use.rw=FALSE)
+        num.bin.solns=1, use.rw=FALSE, timeout = 0L)
 {
 	#
 	# lp: solve a general linear program
@@ -48,7 +48,8 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	#        num.bin.solns solutions and return them in a matrix.
 	#      use.rw: Work around a bug when num.bin.solns=TRUE by writing each
 	#        solution out to a file and reading it back in.
-	#
+        #      timeout: set as timeout variable in lpslink.
+        #
 	# Set up the direction.
 	#
 	if(direction == "min")
@@ -260,6 +261,7 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
                 dense.ctr = as.double (dense.ctr),
                 use.rw = as.integer (use.rw),
                 tmp = as.character(tmp),
+                timeout = as.integer(timeout),
 		status = as.integer(status), PACKAGE="lpSolve")
         lp.out$objective <- objective.in
         lp.out$constraints <- big.const.mat

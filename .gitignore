@@ -1,3 +1,5 @@
 /src/*.o
 /src/lpSolve.so
+.Rproj.user
+*.Rproj
 /revdep

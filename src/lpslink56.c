@@ -54,6 +54,7 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
               double *dense_ctr,              /* Dense constraint info       */
               LONG_OR_INT *use_rw_file,       /* See notes below             */
               char **rw_file,                 /* See notes below             */
+              int *timeout,                   /* timeout in seconds */
               LONG_OR_INT *status);           /* Holds return value          */
 
 /*
@@ -240,6 +241,7 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
               double *dense_ctr,              /* Dense constraint info       */
               LONG_OR_INT *use_rw_file,       /* See notes below             */
               char **rw_file,                 /* See notes below             */
+              int *timeout,                   /* timeout in seconds */
               LONG_OR_INT *status)            /* Holds return value          */
 {
 /*
@@ -372,6 +374,8 @@ if (*compute_sens > 0) {
         set_presolve (lp, PRESOLVE_SENSDUALS, get_presolveloops (lp));
     }
 
+
+if (timeout[0] > 0) set_timeout(lp, 60);
 
 set_scaling (lp, *scale);
 *status = (LONG_OR_INT) solve (lp);
