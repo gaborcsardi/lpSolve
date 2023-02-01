@@ -1056,7 +1056,7 @@ static void number(char *str,REAL value)
 
     do {
      n--;
-     i=snprintf(_str,sizeof(__str),"%*.*E",n,n-6,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.*E",n,n-6,(double) value);
      if (i>12) {
       char *ptr=strchr(_str,'E');
 
@@ -1074,11 +1074,11 @@ static void number(char *str,REAL value)
     int n=13;
 
     do {
-     i=snprintf(_str,sizeof(__str),"%*.0f",--n,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.0f",--n,(double) value);
     } while (i>12);
    }
    else {
-    if (((i=snprintf(_str,sizeof(__str),"%12.10f",(double) value))>12) && (_str[12]>='5')) {
+    if (((i=snprintf(_str,sizeof(__str)-2,"%12.10f",(double) value))>12) && (_str[12]>='5')) {
      for (i=11;i>=0;i--)
       if (_str[i]!='.') {
        if (++_str[i]>'9') _str[i]='0';
@@ -1096,7 +1096,7 @@ static void number(char *str,REAL value)
 
     do {
      n--;
-     i=snprintf(_str,sizeof(__str),"%*.*E",n,n-7,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.*E",n,n-7,(double) value);
      if (i>12) {
       char *ptr=strchr(_str,'E');
 
@@ -1114,11 +1114,11 @@ static void number(char *str,REAL value)
     int n=13;
 
     do {
-     i=snprintf(_str,sizeof(__str),"%*.0f",--n,(double) value);
+     i=snprintf(_str,sizeof(__str)-2,"%*.0f",--n,(double) value);
     } while (i>12);
    }
    else
-    if (((i=snprintf(_str,sizeof(__str),"%12.9f",(double) value))>12) && (_str[12]>='5')) {
+    if (((i=snprintf(_str,sizeof(__str)-2,"%12.9f",(double) value))>12) && (_str[12]>='5')) {
      for (i=11;i>=1;i--)
       if (_str[i]!='.') {
        if (++_str[i]>'9') _str[i]='0';
