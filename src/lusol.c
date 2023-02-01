@@ -632,7 +632,7 @@ void LUSOL_report(LUSOLrec *LUSOL, int msglevel, char *format, ...)
     if(LUSOL->writelog != NULL) {
       char buff[255];
 
-      vsprintf(buff, format, ap);
+      vsnprintf(buff, sizeof(buff), format, ap);
       LUSOL->writelog(LUSOL, LUSOL->loghandle, buff);
     }
     if(LUSOL->outstream != NULL) {

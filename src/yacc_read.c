@@ -167,13 +167,13 @@ static void add_int_var(char *name, short int_decl)
   if((hp = findhash(name, Hash_tab)) == NULL) {
     char buf[256];
 
-    sprintf(buf, "Unknown variable %s declared integer, ignored", name);
+    snprintf(buf, sizeof(buf), "Unknown variable %s declared integer, ignored", name);
     error(NORMAL, buf);
   }
   else if(coldata[hp->index].must_be_int) {
     char buf[256];
 
-    sprintf(buf, "Variable %s declared integer more than once, ignored", name);
+    snprintf(buf, sizeof(buf), "Variable %s declared integer more than once, ignored", name);
     error(NORMAL, buf);
   }
   else {
@@ -182,14 +182,14 @@ static void add_int_var(char *name, short int_decl)
       if(coldata[hp->index].lowbo != -DEF_INFINITE * (REAL) 10.0) {
         char buf[256];
 
-        sprintf(buf, "Variable %s: lower bound on variable redefined", name);
+        snprintf(buf, sizeof(buf), "Variable %s: lower bound on variable redefined", name);
         error(NORMAL, buf);
       }
       coldata[hp->index].lowbo = 0;
       if(coldata[hp->index].upbo < DEF_INFINITE) {
         char buf[256];
 
-        sprintf(buf, "Variable %s: upper bound on variable redefined", name);
+        snprintf(buf, sizeof(buf), "Variable %s: upper bound on variable redefined", name);
         error(NORMAL, buf);
       }
       coldata[hp->index].upbo = 1;
@@ -204,13 +204,13 @@ static void add_sec_var(char *name)
   if((hp = findhash(name, Hash_tab)) == NULL) {
     char buf[256];
 
-    sprintf(buf, "Unknown variable %s declared semi-continuous, ignored", name);
+    snprintf(buf, sizeof(buf), "Unknown variable %s declared semi-continuous, ignored", name);
     error(NORMAL, buf);
   }
   else if(coldata[hp->index].must_be_sec) {
     char buf[256];
 
-    sprintf(buf, "Variable %s declared semi-continuous more than once, ignored", name);
+    snprintf(buf, sizeof(buf), "Variable %s declared semi-continuous more than once, ignored", name);
     error(NORMAL, buf);
   }
   else
@@ -388,7 +388,7 @@ static int store(char *variable,
   if(value == 0) {
     char buf[256];
 
-    sprintf(buf, "(store) Warning, variable %s has an effective coefficient of 0, Ignored", variable);
+    snprintf(buf, sizeof(buf), "(store) Warning, variable %s has an effective coefficient of 0, Ignored", variable);
     error(NORMAL, buf);
     /* return(TRUE); */
   }
@@ -454,7 +454,7 @@ static int storefirst(void)
     else {
       char buf[256];
 
-      sprintf(buf, "Warning, variable %s has an effective coefficient of 0, ignored", tmp_store.name);
+      snprintf(buf, sizeof(buf), "Warning, variable %s has an effective coefficient of 0, ignored", tmp_store.name);
       error(NORMAL, buf);
     }
     null_tmp_store(FALSE);
@@ -495,7 +495,7 @@ int store_re_op(char *yytext, int HadConstraint, int HadVar, int Had_lineair_sum
     {
       char buf[256];
 
-      sprintf(buf, "Error: unknown relational operator %s", yytext);
+      snprintf(buf, sizeof(buf), "Error: unknown relational operator %s", yytext);
       error(CRITICAL, buf);
     }
     return(FALSE);
@@ -707,13 +707,13 @@ int store_bounds(int warn)
     if((tmp_store.rhs_value == 0) ||
        ((tmp_store.rhs_value > 0) && (tmp_store.relat == LE)) ||
        ((tmp_store.rhs_value < 0) && (tmp_store.relat == GE))) {
-      sprintf(buf, "Variable %s has an effective coefficient of 0 in bound, ignored",
+      snprintf(buf, sizeof(buf), "Variable %s has an effective coefficient of 0 in bound, ignored",
 	      tmp_store.name);
       if(warn)
         error(NORMAL, buf);
     }
     else {
-      sprintf(buf, "Error, variable %s has an effective coefficient of 0 in bound",
+      snprintf(buf, sizeof(buf), "Error, variable %s has an effective coefficient of 0 in bound",
 	      tmp_store.name);
       error(CRITICAL, buf);
       return(FALSE);

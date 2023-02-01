@@ -1140,7 +1140,7 @@ case 76:
     char buf[16];
 
     SOSweight++;
-    sprintf(buf, "SOS%d", SOSweight);
+    snprintf(buf, sizeof(buf), "SOS%d", SOSweight);
     storevarandweight(buf);
 
     check_int_sec_sos_decl(Within_int_decl, Within_sec_decl, 2);
@@ -1182,7 +1182,7 @@ case 78:
     char buf[16];
 
     SOSweight++;
-    sprintf(buf, "SOS%d", SOSweight);
+    snprintf(buf, sizeof(buf), "SOS%d", SOSweight);
     storevarandweight(buf);
 
     check_int_sec_sos_decl(Within_int_decl, Within_sec_decl, 2);

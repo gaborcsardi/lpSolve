@@ -314,7 +314,7 @@ static void write_params1(lprec *lp, FILE *fp, char *header, int newline)
 
   ini_writeheader(fp, header, newline);
   lp_solve_version(&majorversion, &minorversion, &release, &build);
-  sprintf(buf, "lp_solve version %d.%d settings\n", majorversion, minorversion);
+  snprintf(buf, sizeof(buf), "lp_solve version %d.%d settings\n", majorversion, minorversion);
   ini_writecomment(fp, buf);
   for(i = 0; i < sizeof(functions) / sizeof(*functions); i++) {
     switch(functions[i].type) {
@@ -345,10 +345,10 @@ static void write_params1(lprec *lp, FILE *fp, char *header, int newline)
       case intfunction:
       case longfunction:
       case MYBOOLfunction:
-        sprintf(buf, "%d", ret);
+        snprintf(buf, sizeof(buf), "%d", ret);
         break;
       case REALfunction:
-        sprintf(buf, "%g", a);
+        snprintf(buf, sizeof(buf), "%g", a);
         break;
       }
     }

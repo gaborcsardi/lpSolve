@@ -5891,9 +5891,9 @@ char * __WINAPI get_origrow_name(lprec *lp, int rownr)
   }
   else {
     if(newrow)
-      sprintf(name, ROWNAMEMASK2, rownr);
+      snprintf(name, sizeof(name), ROWNAMEMASK2, rownr);
     else
-      sprintf(name, ROWNAMEMASK, rownr);
+      snprintf(name, sizeof(name), ROWNAMEMASK, rownr);
     ptr = name;
   }
   return(ptr);
@@ -5957,9 +5957,9 @@ char * __WINAPI get_origcol_name(lprec *lp, int colnr)
   }
   else {
     if(newcol)
-      sprintf((char *) name, COLNAMEMASK2, colnr);
+      snprintf((char *) name, sizeof(name), COLNAMEMASK2, colnr);
     else
-      sprintf((char *) name, COLNAMEMASK, colnr);
+      snprintf((char *) name, sizeof(name), COLNAMEMASK, colnr);
     ptr = name;
   }
   return(ptr);
@@ -9352,7 +9352,7 @@ STATIC int prepare_GUB(lprec *lp)
 
     /* Add the GUB */
     j = GUB_count(lp) + 1;
-    sprintf(GUBname, "GUB_%d", i);
+    snprintf(GUBname, sizeof(GUBname), "GUB_%d", i);
     add_GUB(lp, GUBname, j, k, members);
 
     /* Unmark the GUBs */
@@ -9565,7 +9565,7 @@ int preprocess(lprec *lp)
         if(lp->names_used && (lp->col_name[j] == NULL)) {
           char fieldn[50];
 
-          sprintf(fieldn, "__AntiBodyOf(%d)__", j);
+          snprintf(fieldn, sizeof(fieldn), "__AntiBodyOf(%d)__", j);
           if(!set_col_name(lp, lp->columns, fieldn)) {
 /*          if (!set_col_name(lp, lp->columns, get_col_name(lp, j))) { */
             ok = FALSE;
