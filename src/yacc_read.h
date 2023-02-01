@@ -3,7 +3,7 @@
 #ifndef __READ_H__
 #define __READ_H__
 
-void lex_fatal_error(char *msg);
+void lex_fatal_error(const char *msg);
 int set_title(char *name);
 int add_constraint_name(char *name);
 int store_re_op(char *yytext, int HadConstraint, int HadVar, int Had_lineair_sum);
@@ -18,7 +18,7 @@ int negate_constraint(void);
 void add_row(void);
 void set_obj_dir(int maximise);
 
-void read_error(char *);
+void read_error(const char *);
 void check_int_sec_sos_decl(int, int, int);
 lprec *yacc_read(lprec *lp, int verbose, char *lp_name, int *_lineno, int (*parse) (void), void (*delete_allocated_memory) (void));
 #endif

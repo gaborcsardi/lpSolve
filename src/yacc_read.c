@@ -115,7 +115,7 @@ static struct structcoldata {
   struct  column   *col;
 } *coldata;
 
-static void error(int verbose, char *string)
+static void error(int verbose, const char *string)
 {
   if(Verbose >= verbose)
     report(NULL, verbose, "%s on line %d\n", string, *lineno);
@@ -124,13 +124,13 @@ static void error(int verbose, char *string)
 /*
  * error handling routine for yyparse()
  */
-void read_error(char *string)
+void read_error(const char *string)
 {
   error(CRITICAL, string);
 }
 
 /* called when lex gets a fatal error */
-void lex_fatal_error(char *msg)
+void lex_fatal_error(const char *msg)
 {
   read_error(msg);
   longjmp(jump_buf, 1);
