@@ -1,15 +1,15 @@
 lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	transpose.constraints = TRUE, int.vec, presolve = 0, compute.sens = 0,
-	binary.vec, all.int=FALSE, all.bin=FALSE, scale=196, dense.const,
+	binary.vec, all.int=FALSE, all.bin=FALSE, scale=196, dense.const, 
         num.bin.solns=1, use.rw=FALSE, timeout = 0L)
 {
 	#
 	# lp: solve a general linear program
 	#
 	# Arguments:
-	#     direction: Character: direction of optimization: "min" (default)
+	#     direction: Character: direction of optimization: "min" (default) 
 	#	 or "max."
-	#     objective.in: Numeric vector (or one-column data frame) of
+	#     objective.in: Numeric vector (or one-column data frame) of 
 	#	 coefficients of objective function
 	#     const.mat: Matrix of numeric constraint coefficients, one row
 	#        per constraint, one column per variable (unless
@@ -17,9 +17,9 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	#     const.dir: Vector of character strings giving the direction of the
 	#        constraints: each value should be one of "<," "<=," "=," "==,"
 	#        ">," or ">=."
-	#     const.rhs: Vector of numeric values for the right-hand sides
+	#     const.rhs: Vector of numeric values for the right-hand sides 
 	#        of the constraints.
-	#     transpose.constraints: By default each constraint occupies a
+	#     transpose.constraints: By default each constraint occupies a 
 	#        row of const.mat, and that matrix needs to be transposed before
 	#        being passed  to the optimizing code.  For very large
 	#        constraint matrices it may be wiser  to construct the
@@ -28,17 +28,17 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	#     int.vec: Numeric vector giving the indices of variables that are
 	#        required to be integer. The length of this vector will
 	#        therefore be the  number of integer variables.
-	#     presolve: Numeric: Should presolve be done (in lp_solve)?
+	#     presolve: Numeric: Should presolve be done (in lp_solve)? 
 	#	 Default: 0 (no).
 	#        A non-zero value means "yes." Currently mostly ignored.
-	#     compute.sens: Numeric: compute sensitivities? Default 0 (no).
+	#     compute.sens: Numeric: compute sensitivities? Default 0 (no). 
 	#	Any non-zero value means "yes."
 	#     binary.vec: Numeric vector giving indices of binary variables
 	#     all.int: logical: True if all variables should be integers. This
 	#	overrides anything in int.vec.
 	#     all.bin: logical: True if all variables should be binary. This
 	#	overrides anything in binary.vec.
-	#     dense.const: alternative specification of constraints in the
+	#     dense.const: alternative specification of constraints in the 
 	#        form of a three-column matrix or data frame. If a row contains
 	#        (i, j, k), it means "constraint i, variable j = value k." This
 	#        is ignored if const.mat is supplied.
@@ -48,8 +48,8 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	#        num.bin.solns solutions and return them in a matrix.
 	#      use.rw: Work around a bug when num.bin.solns=TRUE by writing each
 	#        solution out to a file and reading it back in.
-  #      timeout: Set as timeout variable in lpslink.
-	#
+        #      timeout: set as timeout variable in lpslink.
+        #
 	# Set up the direction.
 	#
 	if(direction == "min")
@@ -58,7 +58,7 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
                 direction <- 1
              else stop ("Direction must be 'max' or 'min'")
 	#
-	# Convert one-column data frame objective to vector. Add leading 0 to
+	# Convert one-column data frame objective to vector. Add leading 0 to 
 	#	obejctive.
 	#
 	if(is.data.frame(objective.in)) {
@@ -148,7 +148,7 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
 	const.rhs <- c(const.rhs)
 	names(const.rhs) <- NULL
 	#
-	# For regular (non-dense) constraints, set up big matrix of
+	# For regular (non-dense) constraints, set up big matrix of 
         # constraint info; add a 0 on the front.
 	#
 	if (!missing (const.mat)) {
@@ -203,7 +203,7 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
       # one extra element.
 	#
 		if (num.bin.solns > 1)
-                if (all.bin)
+                if (all.bin)	
                     solution <- c(0, rep (solution, num.bin.solns))
 		    else {
                     warning ("Num.bin.solns can only be > 1 if all variables are binary")
@@ -261,7 +261,7 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
                 dense.ctr = as.double (dense.ctr),
                 use.rw = as.integer (use.rw),
                 tmp = as.character(tmp),
-		timeout = as.integer(timeout),
+                timeout = as.integer(timeout),
 		status = as.integer(status), PACKAGE="lpSolve")
         lp.out$objective <- objective.in
         lp.out$constraints <- big.const.mat
