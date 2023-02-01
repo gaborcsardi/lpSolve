@@ -261,8 +261,9 @@ lp <- function(direction = "min", objective.in, const.mat, const.dir, const.rhs,
                 dense.ctr = as.double (dense.ctr),
                 use.rw = as.integer (use.rw),
                 tmp = as.character(tmp),
+		status = as.integer(status),
                 timeout = as.integer(timeout),
-		status = as.integer(status), PACKAGE="lpSolve")
+                PACKAGE="lpSolve")
         lp.out$objective <- objective.in
         lp.out$constraints <- big.const.mat
 	if(any(names(version) == "language"))

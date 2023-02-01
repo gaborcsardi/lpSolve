@@ -54,8 +54,8 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
               double *dense_ctr,              /* Dense constraint info       */
               LONG_OR_INT *use_rw_file,       /* See notes below             */
               char **rw_file,                 /* See notes below             */
-              int *timeout,                   /* timeout in seconds */
-              LONG_OR_INT *status);           /* Holds return value          */
+              LONG_OR_INT *status,            /* Holds return value          */
+              LONG_OR_INT *timeout);          /* timeout in seconds          */
 
 /*
 ** Some globals for calling from VBScript. The caller will call lpslink,
@@ -241,8 +241,8 @@ void lpslink (LONG_OR_INT *direction,         /* 1 for max, 0 for min        */
               double *dense_ctr,              /* Dense constraint info       */
               LONG_OR_INT *use_rw_file,       /* See notes below             */
               char **rw_file,                 /* See notes below             */
-              int *timeout,                   /* timeout in seconds */
-              LONG_OR_INT *status)            /* Holds return value          */
+              LONG_OR_INT *status,            /* Holds return value          */
+              LONG_OR_INT *timeout)           /* timeout in seconds          */
 {
 /*
 ** This is the function called from the outside.
@@ -375,7 +375,7 @@ if (*compute_sens > 0) {
     }
 
 
-if (timeout[0] > 0) set_timeout(lp, 60);
+if (timeout[0] > 0) set_timeout(lp, timeout[0]);
 
 set_scaling (lp, *scale);
 *status = (LONG_OR_INT) solve (lp);
