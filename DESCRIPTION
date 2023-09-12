@@ -11,4 +11,5 @@ Description: Lp_solve is freely available (under LGPL 2) software for
         calls lp_solve version 5.5.
 License: LGPL-2
 URL: https://github.com/gaborcsardi/lpSolve
+BugReports: https://github.com/gaborcsardi/lpSolve/issues
 Encoding: UTF-8
