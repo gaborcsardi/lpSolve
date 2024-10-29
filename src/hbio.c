@@ -759,7 +759,7 @@ int writeHB_mat_double(const char* filename, int M, int N,
 /*            Duff, et al.,  ACM TOMS Vol.15, No.1, March 1989              */
 /*                                                                          */
 /****************************************************************************/
-    FILE *out_file;
+    FILE *out_file=NULL;
     int i,j,entry,offset,acount,linemod;
     int totcrd, ptrcrd, indcrd, valcrd, rhscrd;
     int nvalentries, nrhsentries;
@@ -1354,14 +1354,14 @@ int writeHB_mat_char(const char* filename, int M, int N,
 /*            Duff, et al.,  ACM TOMS Vol.15, No.1, March 1989              */
 /*                                                                          */
 /****************************************************************************/
-    FILE *out_file;
+    FILE *out_file=NULL;
     int i,j,acount,linemod,entry,offset;
     int totcrd, ptrcrd, indcrd, valcrd, rhscrd;
     int nvalentries, nrhsentries;
     int Ptrperline, Ptrwidth, Indperline, Indwidth;
     int Rhsperline, Rhswidth, Rhsprec;
     int Rhsflag;
-    int Valperline, Valwidth, Valprec;
+    int Valperline=0, Valwidth, Valprec;
     int Valflag;           /* Indicates 'E','D', or 'F' float format */
     char pformat[16],iformat[16],vformat[19],rformat[19];
 
