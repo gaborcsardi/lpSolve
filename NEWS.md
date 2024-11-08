@@ -1,4 +1,4 @@
-# lpSolve (development version)
+# lpSolve 5.6.22
 
 * No changes.
 
