@@ -1,5 +1,7 @@
 # lpSolve (development version)
 
+* Memory error fix when BLAS polyfills are used (#25).
+
 # lpSolve 5.6.22
 
 * No changes.
