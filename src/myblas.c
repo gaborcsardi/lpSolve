@@ -656,6 +656,8 @@ int BLAS_CALLMODEL my_idamax( int *_n, REAL *x, int *_is )
   if(n == 1)
     return(imax);
 
+  x--;
+
 #if defined DOFASTMATH
   xmax = fabs(*x);
   for (i = 2, x += is; i <= n; i++, x += is) {
@@ -694,6 +696,8 @@ int BLAS_CALLMODEL my_idamin( int *_n, REAL *x, int *_is )
   imin = 1;
   if(n == 1)
     return(imin);
+
+  x--;
 
 #if defined DOFASTMATH
   xmin = fabs(*x);
